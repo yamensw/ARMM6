@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StatueMarket — Premium Statue Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- model-viewer for GLB/GLTF/USDZ preview -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+  <!-- NAV -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <button class="text-2xl font-bold text-blue-600" id="brandBtn">🏛️ StatueMarket</button>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
+            <button class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-target="home">Home</button>
+            <button class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-target="browse">Browse</button>
+            <button class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-target="sell">Sell</button>
+            <button class="nav-btn text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-target="about">About</button>
+          </div>
+        </div>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">Sign In</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <section id="page-home" class="page">
+    <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-bold mb-6">Discover Extraordinary Statues</h1>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">The world's premier marketplace for collectors and artists.</p>
+        <button id="btnStartBrowsing" class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold">Start Browsing</button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Featured Statues</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card hover-scale cursor-pointer" data-product="1">
+          <div class="h-64 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center"><div class="text-6xl">🗿</div></div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Classical Venus</h3>
+            <p class="text-gray-600 mb-4">Marble reproduction of the Venus de Milo</p>
+            <div class="flex justify-between items-center"><span class="text-2xl font-bold text-blue-600">$2,450</span><span class="text-sm text-gray-500">Marble</span></div>
+          </div>
+        </div>
+        <div class="card hover-scale cursor-pointer" data-product="2">
+          <div class="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"><div class="text-6xl">🦅</div></div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Majestic Eagle</h3>
+            <p class="text-gray-600 mb-4">Bronze sculpture of an eagle in flight</p>
+            <div class="flex justify-between items-center"><span class="text-2xl font-bold text-blue-600">$1,850</span><span class="text-sm text-gray-500">Bronze</span></div>
+          </div>
+        </div>
+        <div class="card hover-scale cursor-pointer" data-product="3">
+          <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center"><div class="text-6xl">🌿</div></div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Garden Nymph</h3>
+            <p class="text-gray-600 mb-4">Elegant stone figure for garden decoration</p>
+            <div class="flex justify-between items-center"><span class="text-2xl font-bold text-blue-600">$890</span><span class="text-sm text-gray-500">Stone</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSE -->
+  <section id="page-browse" class="page hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Browse Statues</h1>
+        <div class="flex space-x-4">
+          <select class="border border-gray-300 rounded-lg px-4 py-2">
+            <option>All Categories</option><option>Classical</option><option>Modern</option><option>Garden</option><option>Religious</option>
+          </select>
+          <select class="border border-gray-300 rounded-lg px-4 py-2">
+            <option>Sort by Price</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Newest First</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="browseGrid"></div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="page-product" class="page hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <button id="backToBrowse" class="text-blue-600 hover:text-blue-800 mb-6">← Back to Browse</button>
+      <div id="product-content" class="grid grid-cols-1 lg:grid-cols-2 gap-12"></div>
+
+      <div class="mt-10 bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-xl font-semibold mb-4">Upload a 3D model to preview (GLB/GLTF/USDZ)</h3>
+        <input id="arFile" type="file" accept=".glb,.gltf,.usdz" class="block w-full text-sm text-gray-700
+          file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm
+          file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+        <div id="arPreview" class="mv-wrap mt-4"><div class="p-6 text-center text-gray-400">No model selected.</div></div>
+        <p class="text-sm text-gray-500 mt-2">Tip: iOS prefers USDZ (Quick Look), Android prefers GLB (Scene Viewer).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELL -->
+  <section id="page-sell" class="page hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">Sell Your Statue</h1>
+      <div class="bg-white rounded-xl shadow-lg p-8">
+        <form id="sellForm">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div><label class="block text-sm font-medium text-gray-700 mb-2">Statue Title</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="Enter statue name"></div>
+            <div><label class="block text-sm font-medium text-gray-700 mb-2">Price ($)</label><input type="number" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="0.00"></div>
+            <div><label class="block text-sm font-medium text-gray-700 mb-2">Material</label><select class="w-full border border-gray-300 rounded-lg px-4 py-2"><option>Select material</option><option>Marble</option><option>Bronze</option><option>Stone</option><option>Ceramic</option><option>Wood</option><option>Other</option></select></div>
+            <div><label class="block text-sm font-medium text-gray-700 mb-2">Category</label><select class="w-full border border-gray-300 rounded-lg px-4 py-2"><option>Select category</option><option>Classical</option><option>Modern</option><option>Garden</option><option>Religious</option><option>Abstract</option></select></div>
+          </div>
+          <div class="mt-6"><label class="block text-sm font-medium text-gray-700 mb-2">Description</label><textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="Describe your statue..."></textarea></div>
+          <div class="mt-8"><button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">List My Statue</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="page-about" class="page hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">About StatueMarket</h1>
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Our Mission</h2>
+        <p class="text-gray-700">We connect statue collectors, artists, and enthusiasts with an elegant buying experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
